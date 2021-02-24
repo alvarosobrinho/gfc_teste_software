@@ -1,3 +1,5 @@
+package Plataforma.Console;
+
 import com.touchgraph.graphlayout.*;
 
 import java.awt.Color;

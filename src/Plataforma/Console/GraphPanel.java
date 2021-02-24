@@ -1,3 +1,5 @@
+package Plataforma.Console;
+
 import com.touchgraph.graphlayout.*;
 import com.touchgraph.graphlayout.interaction.*;
 import java.awt.*;

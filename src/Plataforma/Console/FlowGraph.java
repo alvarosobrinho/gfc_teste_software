@@ -1,10 +1,12 @@
+package Plataforma.Console;
+
 import java.awt.Dimension;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 import javax.swing.JFrame;
-import java.applet.*;
+
 import org.jgrapht.*;
 import org.jgrapht.graph.*;
 
@@ -24,7 +26,7 @@ public class FlowGraph {
 			DefaultEdge.class);
 
 	public static void main(String[] args) throws Exception {
-		sc = new Scanner(new File("testing4.txt"));
+		sc = new Scanner(new File("C:\\Users\\noron\\Desktop\\ControlFlowGraph-master\\src\\com\\company\\testing4.txt"));
 
 		// Always start with previous as "Start"
 		previous = "Start";

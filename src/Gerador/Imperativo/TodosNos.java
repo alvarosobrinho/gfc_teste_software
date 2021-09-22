@@ -1,4 +1,4 @@
 package Gerador.Imperativo;
 
-public class TodosNos {
+public class TodosNos implements gerarDadosTN {
 }

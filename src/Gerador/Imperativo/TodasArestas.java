@@ -1,4 +1,4 @@
 package Gerador.Imperativo;
 
-public class TodasArestas {
+public class TodasArestas implements gerarDadosTA {
 }

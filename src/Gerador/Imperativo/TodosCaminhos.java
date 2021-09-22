@@ -1,4 +1,4 @@
 package Gerador.Imperativo;
 
-public class TodosCaminhos {
+public class TodosCaminhos implements gerarDadosTC{
 }

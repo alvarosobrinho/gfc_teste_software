@@ -1,4 +1,4 @@
 package InterfaceDoUsuario.Apresentacoes;
 
-public class GFCVisual implements lancarGFC{
+public interface lancarDados {
 }

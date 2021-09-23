@@ -1,4 +1,4 @@
 package Gerador.ParadigmaOrientadoAObjetos;
 
-public class IntrametodoTodosNos {
+public class IntrametodoTodosNos implements gerarDadosITN{
 }

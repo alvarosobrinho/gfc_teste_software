@@ -1,4 +1,5 @@
 package Gerador.ParadigmaOrientadoAObjetos;
 
-public interface gerarDadosITN {
+public class Customizado {
+    
 }

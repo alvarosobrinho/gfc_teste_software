@@ -1,4 +1,6 @@
 package Gerador.ParadigmaOrientadoAObjetos;
 
-public class IntrametodoTodosArestas implements gerarDadosITA {
+public class IntrametodoTodosArestas {
+
+    void gerarDadosITA();
 }

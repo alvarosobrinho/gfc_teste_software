@@ -1,4 +1,6 @@
 package Plataforma.Motor;
 
-public class Seletor implements estruturaDoGFC {
+public class Seletor {
+
+    void estruturaDoGFC();
 }

@@ -1,4 +1,6 @@
 package InterfaceDoUsuario.Apresentacoes;
 
-public class CasosDeTesteVisuais implements lancarDados {
+public class CasosDeTesteVisuais {
+
+    void lancarDados();
 }

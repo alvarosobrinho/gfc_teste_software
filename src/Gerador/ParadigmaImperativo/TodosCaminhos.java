@@ -1,4 +1,6 @@
-package Gerador.Imperativo;
+package Gerador.ParadigmaImperativo;
 
-public class TodosCaminhos implements gerarDadosTC{
+public class TodosCaminhos {
+
+    void gerarDadosTC();
 }

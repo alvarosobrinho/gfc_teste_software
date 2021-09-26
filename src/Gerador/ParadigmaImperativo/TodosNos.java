@@ -1,4 +1,6 @@
-package Gerador.Imperativo;
+package Gerador.ParadigmaImperativo;
 
-public class TodosNos implements gerarDadosTN {
+public class TodosNos {
+
+    void gerarDadosTN();
 }

@@ -1,4 +1,6 @@
-package Gerador.Imperativo;
+package Gerador.ParadigmaImperativo;
 
-public class TodasArestas implements gerarDadosTA {
+public class TodasArestas {
+
+    void gerarDadosTA();
 }

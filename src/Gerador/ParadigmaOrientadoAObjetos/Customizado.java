@@ -1,5 +1,5 @@
 package Gerador.ParadigmaOrientadoAObjetos;
 
-public abstract class Customizado {
-
+public class Customizado {
+    
 }

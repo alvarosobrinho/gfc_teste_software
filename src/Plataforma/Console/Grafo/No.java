@@ -6,6 +6,7 @@ public class No {
 
 	private String dado;
 	private String tipoComandoDesvio;
+	private boolean emAberto;
 	private ArrayList<Aresta> arestasEntrata;
 	private ArrayList<Aresta> arestasSaida;
 	
@@ -16,11 +17,12 @@ public class No {
 		this.tipoComandoDesvio = null;
 	}
 	
-	public No(String dado, String tipoComando) {
+	public No(String dado, String tipoComando, boolean emAberto) {
 		this.dado = dado;
 		this.arestasEntrata = new ArrayList<Aresta>();
 		this.arestasSaida = new ArrayList<Aresta>();
 		this.tipoComandoDesvio = tipoComando;
+		this.emAberto = emAberto;
 	}
 	
 	public String getDado() {
@@ -39,7 +41,10 @@ public class No {
 		this.tipoComandoDesvio = comandoDesvio;
 	}
 	
-	
+	public ArrayList<Aresta> getArestasSaida() {
+		return arestasSaida;
+	}
+
 	public void addArestaEntrada(Aresta a) {
 		this.arestasEntrata.add(a);
 	}

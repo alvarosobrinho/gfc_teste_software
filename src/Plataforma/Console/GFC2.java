@@ -30,7 +30,7 @@ public class GFC2 {
 		
 		//Percorrendo todas as linhas do código
 		//for(int i = 0; i < this.arquivo.size(); i++) { ////////////////////////////////////////////////////////////
-		for(int i = 0; i < 16; i++) {
+		for(int i = 0; i < 11; i++) {
 			
 			//Armazenando linha atual
 			String linha = this.arquivo.get(i);
@@ -45,26 +45,27 @@ public class GFC2 {
 			else if(linha.contains("}")) {
 				//Verifico se há dados na lista de linhas, se tiver, crio um nó para esses comandos, em seguida crio uma aresta para o nó anterior
 				if(!listaIndiceLinhas.isEmpty()) {
-					String no = this.g.getUltimoNo(this.ultimoTopoDaPilha); // Verifico qual o nó anterior
+					String no = this.g.getUltimoNoLiteral(); // Verifico qual o nó anterior ////////////////////////////////////////////////////////
 					this.g.addNo(listaIndiceLinhas.toString()); // Crio um nó no grafo com as linhas anteriores
 					this.g.addAresta(no, listaIndiceLinhas.toString()); // Crio uma aresta ligando os dois nós criados
 					
 					// Verifica qual o tipo de bloco que está sendo fechado
-					String topoPilha = p.popPilha();
+					String topoPilha = p.getTopo();
 					this.ultimoTopoDaPilha = topoPilha;
 					
 					// Quando for loop
 					if(topoPilha == "while" || topoPilha == "for") {
 						String noFinal = g.getUltimaOcorrenciaNo(topoPilha); // Pega a referência do nó que deve ser fechado o ciclo
 						this.g.addAresta(listaIndiceLinhas.toString(), noFinal); // Crio uma aresta ligando os dois nós criados
+						p.popPilha(); // Remove a instrução do topo da pilha
 					}
 					
 					// Quando for desvio condicional
-					else if(topoPilha == "if" || topoPilha == "else") {
+					else if(topoPilha == "if" || topoPilha == "else" || topoPilha == "else if") {
 						g.setDesvioAberto(true);
-						
-						
+						p.popPilha(); /////////////////////////////////////////////
 					}
+					
 					listaIndiceLinhas.clear(); // Limpa a lista
 				}
 			}
@@ -76,18 +77,22 @@ public class GFC2 {
 					this.g.addNo(listaIndiceLinhas.toString()); // Crio um nó no grafo com as linhas anteriores
 					ArrayList<Integer> l = new ArrayList<Integer>();
 					l.add(i+1);
-					this.g.addNo(l.toString(), p.getTopo()); // Crio um nó no grafo com a linha atual que representa o desvio, e sinaliza qual o desvio
+					this.g.addNo(l.toString(), p.getTopo(), true); // Crio um nó no grafo com a linha atual que representa o desvio, e sinaliza qual o desvio
 					this.g.addAresta(listaIndiceLinhas.toString(), l.toString()); // Crio uma aresta ligando os dois nós criados
 					listaIndiceLinhas.clear(); // Limpo a lista de linhas anteriotes
 				}
 				// Quando a lista está vazia, apenas crio um novo nó com a linha atual e em seguida crio uma aresta com o nó anterior caso haja
 				else {
+					String no;
+					if(g.isDesvioAberto()) {
+						no = this.g.getUltimoNoCondicional();  // Armazena o último nó condicional que estiver em aberto
+						g.setDesvioAberto(false); ////////////////////////////////////////////
+					}else {
+						no = this.g.getUltimoNoLiteral(); // Armazena o último nó antes de criar o novo
+					}
 					ArrayList<Integer> l = new ArrayList<Integer>();
 					l.add(i+1);
-					this.g.addNo(l.toString(), p.getTopo()); // Crio um nó no grafo com a linha atual que representa o desvio
-					String no = this.g.getUltimoNo(this.ultimoTopoDaPilha);
-					System.out.println(no + "  " + l.toString() + "  " +this.ultimoTopoDaPilha);
-					System.out.println(g.isDesvioAberto());
+					this.g.addNo(l.toString(), p.getTopo(), true); // Crio um nó no grafo com a linha atual que representa o desvio
 					//Caso haja algum nó anterior faço essa conexao com a aresta
 					if(no != null) {
 						this.g.addAresta(no, l.toString()); // Crio uma aresta ligando os dois nós criados
@@ -98,12 +103,16 @@ public class GFC2 {
 		}
 		System.out.println("\n\n");
 		System.out.println(this.g.toString());
+		System.out.println(this.p.toString());
 		return this.g;
 	}
 	
 	//Método que identifica se contém algum elemento que caracteriza algum tipo de desvio, e empilha essas estruturas
 	boolean contemDesvioInicial(String linha) {
-		if(linha.contains("if ") || linha.contains("if(")) {
+		if(linha.contains("else if ") || linha.contains("else if(")) {
+			this.p.addPilha("else if");
+			return true;
+		}else if(linha.contains("if ") || linha.contains("if(")) {
 			this.p.addPilha("if");
 			return true;
 		}else if(linha.contains("else ") || linha.contains("else{")) {
@@ -119,6 +128,10 @@ public class GFC2 {
 			return true;
 		}*/
 		return false;
+	}
+	
+	boolean ehCondicional(String c) {
+		return c.equals("if") || c.equals("else") || c.equals("else if");
 	}
 	
 	//Método para ler o arquivo do diretório passado como caminho

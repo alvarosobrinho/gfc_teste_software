@@ -32,8 +32,8 @@ public class Grafo {
 		this.desvioAberto = desvioAberto;
 	}
 
-	public void addNo(String dado, String tipoComando) {
-		No novo = new No(dado, tipoComando);
+	public void addNo(String dado, String tipoComando, boolean emAberto) {
+		No novo = new No(dado, tipoComando, emAberto);
 		this.nos.add(novo);
 	}
 	
@@ -55,6 +55,24 @@ public class Grafo {
 		return null;
 	}
 	
+	public String getUltimoNoLiteral() {
+		if(!this.nos.isEmpty()) {
+			return this.nos.get(this.nos.size()-1).getDado();
+		}
+		return null;
+	}
+	
+	public String getUltimoNoCondicional() {
+		for(int i = this.nos.size()-1; i >= 0; i--) {
+			String t = this.nos.get(i).getComandoDesvio();
+			if(t != null && (t.equals("if") || t.equals("else"))) {
+				return this.nos.get(i).getDado();
+			}
+		}
+		return null;
+	}
+	
+	/////////////////////////////////
 	public String getUltimoNo(String prioridade) {
 		if(prioridade != null) {
 			if((prioridade.equals("if") || prioridade.equals("else")) && this.desvioAberto) {
@@ -90,6 +108,7 @@ public class Grafo {
 		
 	}
 	
+	/////////////////////////////////
 	public String getUltimaOcorrenciaNo(String tipo) {
 		for(int i = this.nos.size()-1; i >= 0; i--) {
 			String t = this.nos.get(i).getComandoDesvio();
@@ -101,6 +120,53 @@ public class Grafo {
 			}
 		}
 		return null;
+	}
+	
+	public ArrayList<ArrayList<No>> todosNos() {
+		ArrayList<No> visitados = new ArrayList<No>();
+		ArrayList<ArrayList<No>> caminhos = new ArrayList<ArrayList<No>>();
+		
+		while(visitados.size() < this.nos.size()) {
+			ArrayList<No> caminhoAtual = new ArrayList<No>();
+			No noAtual = this.nos.get(0);
+			caminhoAtual.add(noAtual);
+			if(!visitados.contains(noAtual)) {
+				visitados.add(noAtual);
+			}
+			while(noAtual != this.nos.get(this.nos.size()-1)) {
+				ArrayList<No> nosFilhos = gerarFilhos(noAtual);
+				boolean flag = false;
+				for(int i=0; i<nosFilhos.size(); i++) {
+					if(!visitados.contains(nosFilhos.get(i))) {
+						noAtual = nosFilhos.get(i);
+						caminhoAtual.add(noAtual);
+						if(!visitados.contains(noAtual)) {
+							visitados.add(noAtual);
+						}
+						flag = true;
+						break;
+					}
+				}
+				if(!flag) {
+					noAtual = nosFilhos.get(nosFilhos.size()-1);
+					caminhoAtual.add(noAtual);
+					if(!visitados.contains(noAtual)) {
+						visitados.add(noAtual);
+					}
+				}
+				
+			}
+			caminhos.add(caminhoAtual);
+		}
+		return caminhos;
+	}
+	
+	public ArrayList<No> gerarFilhos(No no){
+		ArrayList<No> filhos = new ArrayList<No>();
+		for(int i =0; i < no.getArestasSaida().size(); i++) {
+			filhos.add(no.getArestasSaida().get(i).getFim());			
+		}
+		return filhos;
 	}
 
 	@Override

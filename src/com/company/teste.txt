@@ -5,3 +5,5 @@ if (a > 10){
 }else{
 	return false;
 }
+
+System.out.println("acabou");

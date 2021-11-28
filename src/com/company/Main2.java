@@ -40,10 +40,23 @@ public class Main2 {
 		
 		ArrayList<ArrayList<No>> caminhos = g.todosNos();
 		
+		System.out.println("Todos-Nós:");
 		for(int i=0; i<caminhos.size(); i++) {
 			String print = "Caminho "+ String.valueOf(i) + ": ";
 			for(int j=0; j<caminhos.get(i).size();j++) {
 				print = print +" " + String.valueOf(caminhos.get(i).get(j).getDado());
+			}
+			System.out.println(print);
+		}
+		
+		
+		ArrayList<ArrayList<No>> caminhos2 = g.todasArestas();
+		
+		System.out.println("\n\nTodas-Arestas:");
+		for(int i=0; i<caminhos2.size();i++) {
+			String print = "Caminho "+ String.valueOf(i) + ": ";
+			for(int j=0; j<caminhos2.get(i).size();j++) {
+				print = print +" " + String.valueOf(caminhos2.get(i).get(j).getDado());
 			}
 			System.out.println(print);
 		}

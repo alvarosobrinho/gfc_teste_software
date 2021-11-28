@@ -122,6 +122,16 @@ public class Grafo {
 		return null;
 	}
 	
+	public Aresta getAresta(String inicio, String fim) {
+		for(int i=0; i<this.arestas.size(); i++) {
+			Aresta a = this.arestas.get(i);
+			if(a.getInicio().equals(inicio) && a.getFim().equals(fim)) {
+				return a;
+			}
+		}
+		return null;
+	}
+	
 	public ArrayList<ArrayList<No>> todosNos() {
 		ArrayList<No> visitados = new ArrayList<No>();
 		ArrayList<ArrayList<No>> caminhos = new ArrayList<ArrayList<No>>();
@@ -167,6 +177,36 @@ public class Grafo {
 			filhos.add(no.getArestasSaida().get(i).getFim());			
 		}
 		return filhos;
+	}
+	
+	public ArrayList<ArrayList<No>> todasArestas(){
+		ArrayList<Aresta> visitadas = new ArrayList<Aresta>();
+		ArrayList<ArrayList<No>> caminhos = new ArrayList<ArrayList<No>>();
+		
+		while(visitadas.size() < this.arestas.size()) {
+			ArrayList<No> caminhoAtual = new ArrayList<No>();
+			No noAtual = this.nos.get(0);
+			caminhoAtual.add(noAtual);
+			while(noAtual != this.nos.get(this.nos.size()-1)) {
+				ArrayList<Aresta> arestas = noAtual.getArestasSaida();
+				boolean flag = false;
+				for(int i=0; i<arestas.size(); i++) {
+					if(!visitadas.contains(arestas.get(i))) {
+						visitadas.add(arestas.get(i));
+						noAtual = this.getNo(arestas.get(i).getFim().getDado());
+						caminhoAtual.add(noAtual);
+						flag = true;
+						break;
+					}
+				}
+				if(!flag) {
+					noAtual = this.getNo(arestas.get(arestas.size()-1).getFim().getDado());
+					caminhoAtual.add(noAtual);
+				}
+			}
+			caminhos.add(caminhoAtual);
+		}
+		return caminhos;
 	}
 
 	@Override

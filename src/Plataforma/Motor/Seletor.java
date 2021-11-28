@@ -2,5 +2,6 @@ package Plataforma.Motor;
 
 public class Seletor {
 
-    void estruturaDoGFC();
+    void estruturaDoGFC() {
+    }
 }

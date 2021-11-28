@@ -1,6 +1,7 @@
 package Plataforma.Console;
 
 import org.jgrapht.Graph;
+
 import org.jgrapht.graph.DefaultEdge;
 import org.jgrapht.graph.SimpleGraph;
 
@@ -9,8 +10,6 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Stack;
-import java.net.URISyntaxException;
-import java.rmi.server.ExportException;
 
 public class GFC {
     public void gerarNosComuns(ArrayList<String> arquivo){

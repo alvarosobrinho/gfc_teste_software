@@ -1,0 +1,9 @@
+if(( K+J) != (M + F)) {
+   F= M+ N;
+   G= M*N;
+}else if((M + F) > 3){
+   F= M-N;
+   G= M+N;
+}else{
+   G= M+N;
+}

@@ -7,12 +7,14 @@ public class Grafo {
 	private ArrayList<No> nos;
 	private boolean ultimoNoEhLoop;
 	private boolean	desvioAberto;
+	private boolean	desvioFechado;
 	
 	public Grafo() {
 		this.arestas = new ArrayList<Aresta>();
 		this.nos = new ArrayList<No>();
 		this.ultimoNoEhLoop = false;
 		this.desvioAberto = false;
+		this.desvioFechado = false;
 	}
 	
 	public void addNo(String dado) {
@@ -27,9 +29,15 @@ public class Grafo {
 	public boolean isDesvioAberto() {
 		return desvioAberto;
 	}
+	public boolean isDesvioFechado() {
+		return desvioFechado;
+	}
 
 	public void setDesvioAberto(boolean desvioAberto) {
 		this.desvioAberto = desvioAberto;
+	}
+	public void setDesvioFechado(boolean desvioFechado) {
+		this.desvioFechado = desvioFechado;
 	}
 
 	public void addNo(String dado, String tipoComando) {
@@ -57,12 +65,13 @@ public class Grafo {
 	
 	public String getUltimoNo(String prioridade) {
 		if(prioridade != null) {
-			if((prioridade.equals("if") || prioridade.equals("else")) && this.desvioAberto) {
+			if((prioridade.equals("if") || prioridade.equals("else") || prioridade.equals("else if")) && this.desvioAberto) {
 				for(int i = this.nos.size()-1; i >= 0; i--) {   // -1 ou -2 ?
 					String t = this.nos.get(i).getComandoDesvio();
-					System.out.println("t = " + t);
-					if(t != null && (t.equals("if") || t.equals("else"))) {
-						return this.nos.get(i).getDado();
+					if(t != null && (t.equals(prioridade))) {
+						if(!this.nos.get(i).getDesvioNoFechado()) {
+							return this.nos.get(i).getDado();
+						}
 					}
 				}
 				return null;

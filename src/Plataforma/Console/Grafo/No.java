@@ -6,7 +6,7 @@ public class No {
 
 	private String dado;
 	private String tipoComandoDesvio;
-	private boolean emAberto;
+	private boolean desvioFechado;
 	private ArrayList<Aresta> arestasEntrata;
 	private ArrayList<Aresta> arestasSaida;
 	
@@ -15,6 +15,7 @@ public class No {
 		this.arestasEntrata = new ArrayList<Aresta>();
 		this.arestasSaida = new ArrayList<Aresta>();
 		this.tipoComandoDesvio = null;
+		this.desvioFechado = false;
 	}
 	
 	public No(String dado, String tipoComando, boolean emAberto) {
@@ -22,9 +23,25 @@ public class No {
 		this.arestasEntrata = new ArrayList<Aresta>();
 		this.arestasSaida = new ArrayList<Aresta>();
 		this.tipoComandoDesvio = tipoComando;
-		this.emAberto = emAberto;
+		this.desvioFechado = false;
 	}
-	
+
+	public ArrayList<Aresta> getArestasSaida(){
+		return this.arestasSaida;
+	}
+
+	public ArrayList<Aresta> getArestasEntrata(){
+		return this.arestasEntrata;
+	}
+
+	public void setDesvioNoFechado(boolean desvioFechado){
+		this.desvioFechado = desvioFechado;
+	}
+
+	public boolean getDesvioNoFechado(){
+		return this.desvioFechado;
+	}
+
 	public String getDado() {
 		return dado;
 	}
@@ -39,10 +56,6 @@ public class No {
 
 	public void setComandoDesvio(String comandoDesvio) {
 		this.tipoComandoDesvio = comandoDesvio;
-	}
-	
-	public ArrayList<Aresta> getArestasSaida() {
-		return arestasSaida;
 	}
 
 	public void addArestaEntrada(Aresta a) {

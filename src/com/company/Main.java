@@ -9,8 +9,8 @@ import java.util.ArrayList;
 public class Main {
 
     public static void main(String[] args) {
-       
-    	GFC2 grafo = new GFC2("src/com/company/teste2.txt");
+
+    	GFC2 grafo = new GFC2("src/com/company/iftesting.txt");
     	
     	grafo.gerarGrafo();
     	

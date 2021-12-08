@@ -134,7 +134,7 @@ public class GFC2 {
 		else if(!listaIndiceLinhas.isEmpty()) {
 			this.g.addNo(listaIndiceLinhas.toString()); // Crio um nó no grafo com as linhas anteriores
 			ArrayList<Integer> l = new ArrayList<Integer>();
-			l.add(this.arquivo.size()+1);
+			l.add(this.arquivo.size());
 			this.g.addNo(l.toString(), p.getTopo(),true); // Crio um nó no grafo com a linha atual que representa o desvio, e sinaliza qual o desvio
 			this.g.addAresta(listaIndiceLinhas.toString(), l.toString()); // Crio uma aresta ligando os dois nós criados
 			listaIndiceLinhas.clear(); // Limpo a lista de linhas anteriotes
@@ -143,7 +143,7 @@ public class GFC2 {
 		// Quando a lista está vazia, apenas crio um novo nó com a linha atual e em seguida crio uma aresta com o nó anterior caso haja
 		else {
 			ArrayList<Integer> l = new ArrayList<Integer>();
-			l.add(this.arquivo.size()+1);
+			l.add(this.arquivo.size());
 			this.g.addNo(l.toString(), p.getTopo(),true); // Crio um nó no grafo com a linha atual que representa o desvio
 			String no = this.g.getUltimoNo(this.ultimoTopoDaPilha);
 			//Caso haja algum nó anterior faço essa conexao com a aresta
@@ -184,7 +184,7 @@ public class GFC2 {
 
 	public void fecharFluxoDecisao(int novo, String tipo){
 		ArrayList<Integer> l = new ArrayList<Integer>();
-		l.add(novo+1);
+		l.add(novo);
 		if(tipo != ""){
 			this.g.addNo(l.toString(), tipo,true);
 		}

@@ -11,13 +11,6 @@ public class Main2 {
 	       
 		Grafo g = new Grafo();
 		
-		
-		//g.addNo("0");
-		
-		//ArrayList<No> n = g.gerarFilhos(g.getNos().get(0));
-		//System.out.println(n);
-		
-		
 		g.addNo("0");
 		g.addNo("1");
 		g.addNo("2");
@@ -45,9 +38,7 @@ public class Main2 {
 		g.addAresta("8", "10");
 		g.addAresta("9", "10");
 		
-		System.out.println(g.toString());
-		
-		/*ArrayList<ArrayList<No>> caminhos = g.todosNos();
+		ArrayList<ArrayList<No>> caminhos = g.todosNos();
 		
 		System.out.println("Todos-Nós:");
 		for(int i=0; i<caminhos.size(); i++) {
@@ -68,8 +59,7 @@ public class Main2 {
 				print = print +" " + String.valueOf(caminhos2.get(i).get(j).getDado());
 			}
 			System.out.println(print);
-		}*/
-		
+		}
 
     }
 

@@ -132,22 +132,6 @@ public class Grafo {
 		return null;
 	}
 	
-	boolean HaNoFilhoNaoVisitado(No no, ArrayList<No> visitados) {
-		
-		ArrayList<No> nosFilhos = gerarFilhos(no);
-		
-		if(nosFilhos.size() > 0) {
-			for(int i=0; i<nosFilhos.size(); i++) {
-				if(!visitados.contains(nosFilhos.get(i))) {
-					return true;
-				}else {
-					return HaNoFilhoNaoVisitado(nosFilhos.get(i), visitados);
-				}
-			}			
-		}
-		return false;
-	}
-	
 	public ArrayList<ArrayList<No>> todosNos() {
 		ArrayList<No> visitados = new ArrayList<No>();
 		ArrayList<ArrayList<No>> caminhos = new ArrayList<ArrayList<No>>();
@@ -161,6 +145,7 @@ public class Grafo {
 			}
 			while(noAtual != this.nos.get(this.nos.size()-1)) {
 				ArrayList<No> nosFilhos = gerarFilhos(noAtual);
+				boolean flag = false;
 				for(int i=0; i<nosFilhos.size(); i++) {
 					if(!visitados.contains(nosFilhos.get(i))) {
 						noAtual = nosFilhos.get(i);
@@ -168,16 +153,18 @@ public class Grafo {
 						if(!visitados.contains(noAtual)) {
 							visitados.add(noAtual);
 						}
-						break;
-					}else if(HaNoFilhoNaoVisitado(nosFilhos.get(i), visitados)) {
-						noAtual = nosFilhos.get(i);
-						caminhoAtual.add(noAtual);
-						if(!visitados.contains(noAtual)) {
-							visitados.add(noAtual);
-						}
+						flag = true;
 						break;
 					}
-				}				
+				}
+				if(!flag) {
+					noAtual = nosFilhos.get(nosFilhos.size()-1);
+					caminhoAtual.add(noAtual);
+					if(!visitados.contains(noAtual)) {
+						visitados.add(noAtual);
+					}
+				}
+				
 			}
 			caminhos.add(caminhoAtual);
 		}
@@ -185,28 +172,11 @@ public class Grafo {
 	}
 	
 	public ArrayList<No> gerarFilhos(No no){
-		ArrayList<Aresta> a = no.getArestasSaida();
-		ArrayList<No> out = new ArrayList<No>();
-		for(int i=0; i<a.size();i++) {
-			String s = a.get(i).getFim().getDado();
-			out.add(this.getNo(s));
+		ArrayList<No> filhos = new ArrayList<No>();
+		for(int i =0; i < no.getArestasSaida().size(); i++) {
+			filhos.add(no.getArestasSaida().get(i).getFim());			
 		}
-		return out;
-	}
-	
-	boolean HaArestasFilhasNaoVisitado(Aresta aresta, ArrayList<Aresta> visitados) {
-		
-		No no = aresta.getFim();
-		ArrayList<Aresta> arestas = no.getArestasSaida();
-		
-		for(int i=0; i<arestas.size(); i++) {
-			if(!visitados.contains(arestas.get(i))) {
-				return true;
-			}else {
-				return HaArestasFilhasNaoVisitado(arestas.get(i), visitados);
-			}
-		}
-		return false;
+		return filhos;
 	}
 	
 	public ArrayList<ArrayList<No>> todasArestas(){
@@ -219,17 +189,19 @@ public class Grafo {
 			caminhoAtual.add(noAtual);
 			while(noAtual != this.nos.get(this.nos.size()-1)) {
 				ArrayList<Aresta> arestas = noAtual.getArestasSaida();
+				boolean flag = false;
 				for(int i=0; i<arestas.size(); i++) {
 					if(!visitadas.contains(arestas.get(i))) {
 						visitadas.add(arestas.get(i));
 						noAtual = this.getNo(arestas.get(i).getFim().getDado());
 						caminhoAtual.add(noAtual);
-						break;
-					}else if(HaArestasFilhasNaoVisitado(arestas.get(i),visitadas)) {
-						noAtual = this.getNo(arestas.get(i).getFim().getDado());
-						caminhoAtual.add(noAtual);
+						flag = true;
 						break;
 					}
+				}
+				if(!flag) {
+					noAtual = this.getNo(arestas.get(arestas.size()-1).getFim().getDado());
+					caminhoAtual.add(noAtual);
 				}
 			}
 			caminhos.add(caminhoAtual);

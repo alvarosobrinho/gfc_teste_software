@@ -18,7 +18,7 @@ public class No {
 		this.desvioFechado = false;
 	}
 	
-	public No(String dado, String tipoComando) {
+	public No(String dado, String tipoComando, boolean emAberto) {
 		this.dado = dado;
 		this.arestasEntrata = new ArrayList<Aresta>();
 		this.arestasSaida = new ArrayList<Aresta>();
@@ -57,8 +57,7 @@ public class No {
 	public void setComandoDesvio(String comandoDesvio) {
 		this.tipoComandoDesvio = comandoDesvio;
 	}
-	
-	
+
 	public void addArestaEntrada(Aresta a) {
 		this.arestasEntrata.add(a);
 	}

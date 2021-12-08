@@ -30,7 +30,7 @@ public class GFC2 {
 		
 		//Percorrendo todas as linhas do código
 		//for(int i = 0; i < this.arquivo.size(); i++) { ////////////////////////////////////////////////////////////
-		for(int i = 0; i < 9; i++) {
+		for(int i = 0; i < 11; i++) {
 			
 			//Armazenando linha atual
 			String linha = this.arquivo.get(i);
